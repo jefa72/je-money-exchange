@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>JE Money Exchange</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <style>
+  .border {
+    display: inline-block;
+    margin: 12px;
+  }
+  </style>
+
+
+</head>
+
+<body>
+
+<div class="container">
+    <div class="row">
+        <div class="col-xl-4"></div>
+        <div class="col-xl-4">
+            <span class="border border-0">
+                <h1>Dolars Exchange!</h1>
+            </span>
+        </div>
+        <div class="col-xl-4"></div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-xl-3"></div>
+        <div class="col-xl-3">
+            <span class="border border-0">
+                <input type="number" class="form-control" id="base">
+            </span>
+        </div>
+        <div class="col-xl-3">
+            <span class="border border-0">
+                <input type="number" class="form-control" id="symbol" readonly>
+            </span>
+        </div>
+        <div class="col-xl-3"></div>
+    </div>
+    <div class="row"></div>
+    <div class="row">
+        <div class="col-xl-4"></div>
+            <div class="col-xl-4">
+                    <button type="button" onclick="loadDoc()" class="btn btn-info btn-block">CALCULATE</button>
+            </div>
+        <div class="col-xl-4"></div>
+    </div>
+</div>
+
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script>
+function loadDoc() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+        var myObj = JSON.parse(this.responseText);
+        var rate = myObj.value;
+        var dollars = document.getElementById("base").value;
+        var exchange = rate * dollars;
+        document.getElementById("symbol").value = exchange;
+    }
+  };
+  var base = document.getElementById("base").innerHTML;
+  var url = "http://localhost:8080/latest?base=USD&symbol=EUR";
+  xhttp.open("GET", url, true);
+  xhttp.send();
+}
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+</body>
+</html>
