@@ -11,19 +11,17 @@ import java.util.List;
 @RepositoryRestResource(collectionResourceRel = "rates", path = "rates")
 public interface CurrencyRatesRepo extends JpaRepository<CurrencyRates, Long> {
 
-    /*@Query("SELECT r FROM CurrencyRates r JOIN r.curBase b WHERE b.base = :base and r.currency = :currency")
-    List<Object> findBaseRates(@Param("base") String base, @Param("currency") String currency);*/
-    @Query("SELECT r FROM CurrencyRates r WHERE r.currency = :currency")//b.base = :base and
+    @Query("SELECT r FROM CurrencyRates r WHERE r.currency = :currency")
     List<CurrencyRates> findByCurrency(@Param("currency") String currency);
 
-    //@Query("SELECT r FROM CurrencyBase b, CurrencyRates r JOIN r.curBase WHERE r.currency = :currency and r.curBase.base = :base")//b.base = :base and
-    //List<Object[]> findByBaseAndCurrency(@Param("currency") String currency, @Param("base") String base);
+    //@Query("SELECT r FROM CurrencyRates r WHERE r.curBase.base = :base AND r.currency = :currency")
+    //List<CurrencyRates> findByBaseAndCurrency(@Param("currency") String currency, @Param("base") String base);
 
-    @Query("SELECT r FROM CurrencyRates r WHERE r.curBase.base = :base AND r.currency = :currency")//b.base = :base and
-    List<CurrencyRates> findByBaseAndCurrency(@Param("currency") String currency, @Param("base") String base);
-
-    @Query("SELECT r FROM CurrencyRates r WHERE r.curBase.base = :base AND r.currency = :currency")//b.base = :base and
+    @Query("SELECT r FROM CurrencyRates r WHERE r.curBase.base = :base AND r.currency = :currency")
     List<CurrencyRates> findData(@Param("currency") String currency, @Param("base") String base);
+
+    @Query("SELECT r FROM CurrencyRates r WHERE r.curBase.base = :base AND r.currency = :currency")
+    CurrencyRates findByBaseAndCurrency(@Param("currency") String currency, @Param("base") String base);
 
 }
 

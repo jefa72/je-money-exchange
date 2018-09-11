@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.time.*;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -26,12 +27,11 @@ public class LoadData implements CommandLineRunner {
     public void run(String... args) throws Exception {
         loadData();
         System.out.println("Bases are:");
-        CurrencyBase baseF = exchangeRatesRepo.findByBase("USD");
-        System.out.println(baseF);
-        baseF.getRates().forEach(System.out::println);
+        List<CurrencyBase> baseF = exchangeRatesRepo.findByBase("USD");
+        System.out.println(baseF.get(0));
 
         System.out.println("Rate by 'USD' base and 'EUR' currency is:");
-        currencyRatesRepo.findByBaseAndCurrency("EUR","USD").forEach(System.out::println);
+        System.out.println(currencyRatesRepo.findByBaseAndCurrency("EUR","USD"));
     }
 
     @Transactional
@@ -40,7 +40,7 @@ public class LoadData implements CommandLineRunner {
 
         CurrencyBase currencyBase = new CurrencyBase();
         currencyBase.setBase("USD");
-        currencyBase.setDate(new Date());
+        currencyBase.setDate(LocalDate.now());
 
         CurrencyRates currencyRates1 = new CurrencyRates();
         currencyRates1.setCurrency("EUR");
@@ -55,6 +55,7 @@ public class LoadData implements CommandLineRunner {
         List<CurrencyRates> currencyRatesList = new LinkedList<>();
         currencyRatesList.add(currencyRates1);
         currencyRatesList.add(currencyRates2);
+        System.out.println("Currency Rates List::::" + currencyRatesList);
         currencyBase.setRates(currencyRatesList);
 
         exchangeRatesRepo.save(currencyBase);

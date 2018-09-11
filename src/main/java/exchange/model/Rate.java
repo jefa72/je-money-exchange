@@ -1,5 +1,7 @@
 package exchange.model;
 
+import javax.persistence.Entity;
+
 public class Rate {
     private String symbol;
     private Float value;

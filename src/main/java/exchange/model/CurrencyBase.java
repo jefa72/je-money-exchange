@@ -2,6 +2,8 @@ package exchange.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -15,15 +17,15 @@ public class CurrencyBase implements Serializable {
 
     private String base = "USD";
 
-    private Date date;
+    private LocalDate date;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy="curBase", cascade= CascadeType.ALL)
-    private List<CurrencyRates> rates;
+    private List<CurrencyRates> rates = new ArrayList<>();
 
     public CurrencyBase() {
     }
 
-    public CurrencyBase(String base, Date date, List<CurrencyRates> rates) {
+    public CurrencyBase(String base, LocalDate date, List<CurrencyRates> rates) {
         this.base = base;
         this.date = date;
         this.rates = rates;
@@ -45,11 +47,11 @@ public class CurrencyBase implements Serializable {
         this.base = base;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
@@ -61,16 +63,22 @@ public class CurrencyBase implements Serializable {
     }
 
     public void setRates(List<CurrencyRates> rates) {
-        this.rates = rates;
+        for(CurrencyRates cr : rates){
+            this.rates.add(cr);
+        }
     }
 
     @Override
     public String toString() {
+        StringBuilder ratesString = new StringBuilder("");
+        for(CurrencyRates cRates : rates){
+            ratesString.append(cRates.getCurrency()).append(": ").append(cRates.getRate()).append('\n');
+        }
         return "CurrencyBase{" +
                 "idBase=" + idBase +
                 ", base='" + base + '\'' +
                 ", date=" + date +
-                //", rates=" + rates +
+                ", rates=" + ratesString +
                 '}';
     }
 }
