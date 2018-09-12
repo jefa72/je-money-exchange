@@ -62,7 +62,6 @@ public class CurrencyRates implements Serializable {
                 "idRate=" + idRate +
                 ", currency='" + currency + '\'' +
                 ", rate=" + rate +
-                //", curBase=" + curBase +
                 '}';
     }
 }

@@ -54,17 +54,4 @@ public class ExchangeServiceImpl implements ExchangeService {
         Rate rate = new Rate(cRates.getCurrency(), cRates.getRate());
         return rate;
     }
-
-    /*@Override
-    public Rate findLatest(String base, String currency) {
-        List<CurrencyRates> rates = currencyRatesRepo.findByBaseAndCurrency(currency, base);
-        CurrencyRates cRates = rates.get(rates.size()-1);
-        Rate rate = new Rate(cRates.getCurrency(), cRates.getRate());
-        return rate;
-    }*/
-
-    /*@Override
-    public CurrencyBase findByBase(String base) {
-        return exchangeRatesRepo.findByBase(base);
-    }*/
 }

@@ -12,7 +12,4 @@ public interface ExchangeService {
     CurrencyRatesData findByBase(String base);
     Rate findRate(String base, String symbol);
     void createCurrencyRates(CurrencyBase currencyBase);
-
-    //Rate findLatest(String base, String currency);
-    //CurrencyBase findByBase(String base);
 }

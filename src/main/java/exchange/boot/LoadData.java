@@ -9,7 +9,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
 import java.time.*;
 import java.util.LinkedList;
 import java.util.List;
@@ -26,12 +25,6 @@ public class LoadData implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         loadData();
-        System.out.println("Bases are:");
-        List<CurrencyBase> baseF = exchangeRatesRepo.findByBase("USD");
-        System.out.println(baseF.get(0));
-
-        System.out.println("Rate by 'USD' base and 'EUR' currency is:");
-        System.out.println(currencyRatesRepo.findByBaseAndCurrency("EUR","USD"));
     }
 
     @Transactional

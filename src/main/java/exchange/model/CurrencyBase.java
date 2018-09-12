@@ -70,7 +70,7 @@ public class CurrencyBase implements Serializable {
 
     @Override
     public String toString() {
-        StringBuilder ratesString = new StringBuilder("");
+        StringBuilder ratesString = new StringBuilder(" ");
         for(CurrencyRates cRates : rates){
             ratesString.append(cRates.getCurrency()).append(": ").append(cRates.getRate()).append('\n');
         }
